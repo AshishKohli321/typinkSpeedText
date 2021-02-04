@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Typing Test project</title>
+</head>
+<style type="text/css">
+	*{margin: 0;padding: 0;box-sizing:border-box; font-family:verdana;}
+	.main_div{
+		width: 100%;
+		height: 100vh;
+		position:relative;
+		background:#3498db;
+	}
+	.main_div .inner_div{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform:translate(-50% ,-50%);
+		text-align: center;
+	}
+	.main_div .inner_div h1{
+		text-transform:uppercase;
+		margin-bottom:30px;
+		color: #ecf0f1;
+		text-shadow:1px 2px 3px #2980b9;
+		font-size: 2.1rem;
+	}
+	.main_div .inner_div  textarea{
+		background: #444;
+		box-shadow:0 0 1px rgba(0,0,0,0.7);
+		border-radius: 10px 10px 0 0;
+		padding: 20px;
+		color: #fff;
+		border:none;
+		resize:none;
+	}
+
+	.btn{
+		padding: 10px 20px;
+		border-radius:20px;
+		border: 5px solid #2980b9;
+		font-size: 1rem;
+		background: #ecf0f1;
+		cursor: pointer;
+		outline: none;
+	}
+</style>
+
+<body>
+
+<div class="main_div">
+	<div class="inner_div">
+		<h1>Welcome to typing speed test</h1>
+		<h2 id="showMsg"></h2><br>
+		<textarea id="myWords" cols="100" rows="10" placeholder="Write your text..."></textarea><br>
+		<button id="btn" class="btn">Start</button>
+	</div>
+</div>
+
+
+<script>
+	"use strict"
+
+	const setofwords = [
+			"Hi my name is Ashish kohli and I am a web developer",
+			"I want to became a full stack developer "];
+
+	const showMsg = document.getElementById('showMsg');
+	const myTypesWords = document.getElementById('myWords');
+	const btn = document.getElementById('btn');
+	let startTime , endTime;
+
+	const typingWords = () =>{
+		let randomNumber = Math.floor(Math.random()*setofwords.length);
+		showMsg.innerText = setofwords[randomNumber];
+
+		let date = new Date();
+		startTime = date.getTime();
+		btn.innerText = "Done";
+	}
+
+	const endTyping = ()=>{
+		let date = new Date();
+		endTime = date.getTime();
+		let totalTime = ((endTime - startTime)/1000);
+		let totalstr = myWords.value;
+		let wordcount = wordcounter(totalstr);
+		showMsg.innerText = "You have typed " + wordcount + " Words " + totalTime + " times";
+	}
+
+	const wordcounter = (str) =>{
+		let response = str.split(" ").length;
+		console.log(response);
+		return response;
+	}
+
+	btn.addEventListener('click',function(){
+		if(this.innerText == 'Start'){
+			myTypesWords.disabled = false;
+			typingWords();
+		}else if(this.innerText == 'Done'){
+			myTypesWords.disabled = true;
+			btn.innerText = "Start";
+			endTyping();
+		}
+	});
+
+
+
+
+</script>
+</body>
+</html>
